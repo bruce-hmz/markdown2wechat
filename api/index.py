@@ -17,11 +17,5 @@ sys.path.insert(0, str(project_root))
 os.environ["VERCEL"] = "1"
 os.environ["VERCEL_ROOT"] = str(project_root)
 
-
-def handler(request, context):
-    """Vercel Python handler"""
-    from mangum import Mangum
-    from app.main import app
-
-    asgi_handler = Mangum(app, lifespan="off")
-    return asgi_handler(request, context)
+# 导入 FastAPI app
+from app.main import app
