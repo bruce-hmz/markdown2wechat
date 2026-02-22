@@ -4,7 +4,8 @@
 
 import os
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 
@@ -24,9 +25,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 主题目录 - Vercel 环境下在 api/themes
+# 目录配置
 BASE_DIR = Path(__file__).resolve().parent  # api/
 THEMES_DIR = BASE_DIR / "themes"
+STATIC_DIR = BASE_DIR / "static"
+
+# 挂载静态文件
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # 导入路由
 from api.app.routers import markdown, themes, images
@@ -35,6 +41,15 @@ from api.app.routers import markdown, themes, images
 app.include_router(markdown.router)
 app.include_router(themes.router)
 app.include_router(images.router)
+
+
+@app.get("/")
+async def index():
+    """主页面"""
+    index_file = BASE_DIR / "index.html"
+    if index_file.exists():
+        return FileResponse(str(index_file))
+    return HTMLResponse(content="<h1>Markdown2WeChat</h1><p>Frontend not found</p>")
 
 
 @app.get("/health")
