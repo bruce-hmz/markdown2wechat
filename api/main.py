@@ -37,49 +37,6 @@ app.include_router(themes.router)
 app.include_router(images.router)
 
 
-@app.get("/")
-async def index():
-    """主页面 - 返回提示信息"""
-    return HTMLResponse(content="""
-    <!DOCTYPE html>
-    <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8">
-        <title>Markdown2WeChat API</title>
-        <style>
-            body { font-family: -apple-system, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
-            h1 { color: #333; }
-            code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
-            .endpoint { margin: 10px 0; padding: 10px; background: #f9f9f9; border-radius: 8px; }
-        </style>
-    </head>
-    <body>
-        <h1>Markdown2WeChat API</h1>
-        <p>欢迎使用 Markdown 转微信公众号格式工具 API</p>
-
-        <h2>可用接口</h2>
-        <div class="endpoint">
-            <code>POST /api/convert</code> - 转换 Markdown 为微信 HTML
-        </div>
-        <div class="endpoint">
-            <code>GET /api/themes</code> - 获取主题列表
-        </div>
-        <div class="endpoint">
-            <code>GET /api/themes/{name}</code> - 获取主题详情
-        </div>
-        <div class="endpoint">
-            <code>POST /api/images/upload</code> - 上传并处理图片
-        </div>
-        <div class="endpoint">
-            <code>GET /health</code> - 健康检查
-        </div>
-
-        <p><a href="/api/themes">查看可用主题</a></p>
-    </body>
-    </html>
-    """)
-
-
 @app.get("/health")
 async def health_check():
     """健康检查"""
