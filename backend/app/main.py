@@ -2,6 +2,7 @@
 微信公众号 Markdown 工具 - FastAPI 应用入口
 """
 
+import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -24,17 +25,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 静态文件目录
-BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
-PROJECT_ROOT = BASE_DIR.parent  # wechat-markdown-tool/
-STATIC_DIR = PROJECT_ROOT / "frontend" / "static"
-TEMPLATES_DIR = PROJECT_ROOT / "frontend" / "templates"
-THEMES_DIR = BASE_DIR / "themes"
+# 静态文件目录 - 适配 Vercel 和本地开发
+def get_base_dirs():
+    """获取基础目录路径"""
+    # 当前文件位置: backend/app/main.py
+    BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
+    PROJECT_ROOT = BASE_DIR.parent  # 项目根目录
 
-# 确保目录存在
-STATIC_DIR.mkdir(parents=True, exist_ok=True)
-TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
-THEMES_DIR.mkdir(parents=True, exist_ok=True)
+    # 检查是否在 Vercel 环境中运行
+    if os.environ.get("VERCEL"):
+        # Vercel 环境：使用相对于 api/index.py 的路径
+        # api/index.py 在项目根目录下
+        PROJECT_ROOT = Path(os.getcwd())
+        BASE_DIR = PROJECT_ROOT / "backend"
+
+    STATIC_DIR = PROJECT_ROOT / "frontend" / "static"
+    TEMPLATES_DIR = PROJECT_ROOT / "frontend" / "templates"
+    THEMES_DIR = BASE_DIR / "themes"
+
+    return STATIC_DIR, TEMPLATES_DIR, THEMES_DIR
+
+STATIC_DIR, TEMPLATES_DIR, THEMES_DIR = get_base_dirs()
+
+# 确保目录存在（仅在本地开发时）
+if not os.environ.get("VERCEL"):
+    STATIC_DIR.mkdir(parents=True, exist_ok=True)
+    TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
+    THEMES_DIR.mkdir(parents=True, exist_ok=True)
 
 # 挂载静态文件
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")

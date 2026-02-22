@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/static/(.*)",
+      "destination": "/frontend/static/$1"
+    },
+    {
+      "source": "/((?!static/).*)",
+      "destination": "/api/index"
+    }
+  ]
+}

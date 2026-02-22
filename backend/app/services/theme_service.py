@@ -1,5 +1,6 @@
 """主题管理服务"""
 
+import os
 import json
 from pathlib import Path
 from typing import Dict, Any, Optional
@@ -48,9 +49,15 @@ class ThemeService:
         """
         if themes_dir is None:
             # 默认使用 backend/themes 目录
-            from pathlib import Path
             base_dir = Path(__file__).resolve().parent.parent.parent  # backend/
-            themes_dir = base_dir / "themes"
+
+            # 检查是否在 Vercel 环境中运行
+            if os.environ.get("VERCEL"):
+                # Vercel 环境：使用相对于项目根目录的路径
+                project_root = Path(os.getcwd())
+                themes_dir = project_root / "backend" / "themes"
+            else:
+                themes_dir = base_dir / "themes"
 
         self.themes_dir = Path(themes_dir)
         self._cache: Dict[str, Theme] = {}
