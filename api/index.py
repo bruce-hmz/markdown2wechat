@@ -17,12 +17,11 @@ sys.path.insert(0, str(project_root))
 os.environ["VERCEL"] = "1"
 os.environ["VERCEL_ROOT"] = str(project_root)
 
-from app.main import app
 
-# Vercel Python runtime 使用 Mangum 适配 FastAPI
-try:
+def handler(request, context):
+    """Vercel Python handler"""
     from mangum import Mangum
-    handler = Mangum(app, lifespan="off")
-except ImportError:
-    # 如果没有 mangum，使用原生方式
-    handler = app
+    from app.main import app
+
+    asgi_handler = Mangum(app, lifespan="off")
+    return asgi_handler(request, context)
