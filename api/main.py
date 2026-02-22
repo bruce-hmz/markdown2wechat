@@ -25,11 +25,11 @@ app.add_middleware(
 )
 
 # 主题目录 - Vercel 环境下在 api/themes
-BASE_DIR = Path(__file__).resolve().parent.parent  # api/
+BASE_DIR = Path(__file__).resolve().parent  # api/
 THEMES_DIR = BASE_DIR / "themes"
 
 # 导入路由
-from app.routers import markdown, themes, images
+from api.app.routers import markdown, themes, images
 
 # 注册路由
 app.include_router(markdown.router)

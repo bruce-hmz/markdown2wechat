@@ -4,8 +4,8 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-from app.services.markdown_service import MarkdownService
-from app.services.theme_service import ThemeService
+from api.app.services.markdown_service import MarkdownService
+from api.app.services.theme_service import ThemeService
 
 
 router = APIRouter(prefix="/api", tags=["markdown"])

@@ -8,10 +8,10 @@ from markdown.extensions.toc import TocExtension
 from typing import Optional
 import re
 
-from app.services.wechat_formatter import format_for_wechat
-from app.services.theme_service import Theme, ThemeService
-from app.utils.css_inliner import apply_inline_styles
-from app.utils.code_highlight import get_code_block_with_style
+from api.app.services.wechat_formatter import format_for_wechat
+from api.app.services.theme_service import Theme, ThemeService
+from api.app.utils.css_inliner import apply_inline_styles
+from api.app.utils.code_highlight import get_code_block_with_style
 
 
 class MarkdownService:

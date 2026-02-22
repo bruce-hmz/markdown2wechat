@@ -4,7 +4,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 
-from app.services.image_service import ImageService
+from api.app.services.image_service import ImageService
 
 
 router = APIRouter(prefix="/api/images", tags=["images"])

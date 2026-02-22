@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict
 
-from app.services.theme_service import ThemeService, Theme
+from api.app.services.theme_service import ThemeService, Theme
 
 
 router = APIRouter(prefix="/api/themes", tags=["themes"])
