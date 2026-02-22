@@ -5,7 +5,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 
@@ -34,18 +34,18 @@ def get_base_dirs():
 
     # 检查是否在 Vercel 环境中运行
     if os.environ.get("VERCEL"):
-        # Vercel 环境：使用相对于 api/index.py 的路径
-        # api/index.py 在项目根目录下
-        PROJECT_ROOT = Path(os.getcwd())
+        # Vercel 环境：使用 VERCEL_ROOT 或当前工作目录
+        vercel_root = os.environ.get("VERCEL_ROOT", os.getcwd())
+        PROJECT_ROOT = Path(vercel_root)
         BASE_DIR = PROJECT_ROOT / "backend"
 
     STATIC_DIR = PROJECT_ROOT / "frontend" / "static"
     TEMPLATES_DIR = PROJECT_ROOT / "frontend" / "templates"
     THEMES_DIR = BASE_DIR / "themes"
 
-    return STATIC_DIR, TEMPLATES_DIR, THEMES_DIR
+    return STATIC_DIR, TEMPLATES_DIR, THEMES_DIR, PROJECT_ROOT, BASE_DIR
 
-STATIC_DIR, TEMPLATES_DIR, THEMES_DIR = get_base_dirs()
+STATIC_DIR, TEMPLATES_DIR, THEMES_DIR, PROJECT_ROOT, BASE_DIR = get_base_dirs()
 
 # 确保目录存在（仅在本地开发时）
 if not os.environ.get("VERCEL"):
@@ -53,8 +53,9 @@ if not os.environ.get("VERCEL"):
     TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
     THEMES_DIR.mkdir(parents=True, exist_ok=True)
 
-# 挂载静态文件
-app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+# 挂载静态文件（仅在目录存在时）
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # 导入路由
 from app.routers import markdown, themes, images
@@ -69,15 +70,26 @@ app.include_router(images.router)
 async def index():
     """主页面"""
     index_file = TEMPLATES_DIR / "index.html"
-    if not index_file.exists():
-        return {"error": "index.html not found"}
-    return FileResponse(str(index_file))
+    if index_file.exists():
+        return FileResponse(str(index_file))
+
+    # 如果文件不存在，返回简单的 HTML
+    return HTMLResponse(content="""
+    <!DOCTYPE html>
+    <html>
+    <head><title>Markdown2WeChat</title></head>
+    <body>
+        <h1>Loading...</h1>
+        <p>If you see this, the frontend is not deployed correctly.</p>
+    </body>
+    </html>
+    """)
 
 
 @app.get("/health")
 async def health_check():
     """健康检查"""
-    return {"status": "ok"}
+    return {"status": "ok", "static_dir": str(STATIC_DIR), "themes_dir": str(THEMES_DIR)}
 
 
 if __name__ == "__main__":

@@ -48,15 +48,14 @@ class ThemeService:
             themes_dir: 主题目录路径
         """
         if themes_dir is None:
-            # 默认使用 backend/themes 目录
-            base_dir = Path(__file__).resolve().parent.parent.parent  # backend/
-
             # 检查是否在 Vercel 环境中运行
             if os.environ.get("VERCEL"):
-                # Vercel 环境：使用相对于项目根目录的路径
-                project_root = Path(os.getcwd())
+                # Vercel 环境：使用 VERCEL_ROOT
+                project_root = Path(os.environ.get("VERCEL_ROOT", "/var/task"))
                 themes_dir = project_root / "backend" / "themes"
             else:
+                # 本地开发：使用相对于当前文件的路径
+                base_dir = Path(__file__).resolve().parent.parent.parent  # backend/
                 themes_dir = base_dir / "themes"
 
         self.themes_dir = Path(themes_dir)
