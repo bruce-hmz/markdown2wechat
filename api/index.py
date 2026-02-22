@@ -19,5 +19,10 @@ os.environ["VERCEL_ROOT"] = str(project_root)
 
 from app.main import app
 
-# Vercel Python runtime 期望的 handler 格式
-handler = app
+# Vercel Python runtime 使用 Mangum 适配 FastAPI
+try:
+    from mangum import Mangum
+    handler = Mangum(app, lifespan="off")
+except ImportError:
+    # 如果没有 mangum，使用原生方式
+    handler = app
