@@ -1,22 +1,14 @@
 {
+  "public": true,
   "rewrites": [
     {
       "source": "/api/:path*",
       "destination": "/api/:path*"
-    },
-    {
-      "source": "/static/:path*",
-      "destination": "/static/:path*"
-    },
-    {
-      "source": "/((?!api/|static/).*)",
-      "destination": "/index.html"
     }
   ],
   "functions": {
     "api/index.py": {
       "runtime": "python3.11"
     }
-  },
-  "public": "public"
+  }
 }
