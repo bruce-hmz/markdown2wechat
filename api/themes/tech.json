@@ -1,0 +1,108 @@
+{
+  "name": "科技主题",
+  "version": "1.0",
+  "styles": {
+    "global": {
+      "font-family": "'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'PingFang SC', monospace",
+      "font-size": "15px",
+      "line-height": "1.75",
+      "color": "#d4d4d4",
+      "text-align": "justify"
+    },
+    "heading": {
+      "h1": {
+        "font-size": "26px",
+        "font-weight": "bold",
+        "margin": "25px 0 15px",
+        "text-align": "center",
+        "color": "#4ec9b0",
+        "border": "2px solid #4ec9b0",
+        "padding": "15px"
+      },
+      "h2": {
+        "font-size": "22px",
+        "font-weight": "bold",
+        "margin": "20px 0 12px",
+        "color": "#569cd6",
+        "border-bottom": "1px solid #569cd6",
+        "padding-bottom": "8px"
+      },
+      "h3": {
+        "font-size": "19px",
+        "font-weight": "bold",
+        "margin": "18px 0 10px",
+        "color": "#dcdcaa"
+      },
+      "h4": {
+        "font-size": "17px",
+        "font-weight": "bold",
+        "margin": "15px 0 8px",
+        "color": "#c586c0"
+      }
+    },
+    "code": {
+      "block": {
+        "color": "#d4d4d4",
+        "padding": "15px",
+        "border-radius": "4px",
+        "border": "1px solid #3e3e42",
+        "overflow-x": "auto",
+        "font-family": "'Fira Code', 'Courier New', monospace",
+        "font-size": "14px",
+        "line-height": "1.5"
+      },
+      "inline": {
+        "color": "#9cdcfe",
+        "padding": "2px 6px",
+        "font-family": "'Fira Code', 'Courier New', monospace",
+        "font-size": "14px"
+      }
+    },
+    "blockquote": {
+      "border-left": "4px solid #569cd6",
+      "padding": "12px 20px",
+      "margin": "20px 0",
+      "color": "#9cdcfe",
+      "font-style": "normal"
+    },
+    "list": {
+      "margin": "15px 0",
+      "padding-left": "30px",
+      "line-height": "1.8"
+    },
+    "link": {
+      "color": "#4ec9b0",
+      "text-decoration": "none",
+      "border-bottom": "1px dashed #4ec9b0"
+    },
+    "image": {
+      "max-width": "100%",
+      "height": "auto",
+      "display": "block",
+      "margin": "20px auto",
+      "border-radius": "4px",
+      "border": "1px solid #3e3e42"
+    },
+    "table": {
+      "table": {
+        "width": "100%",
+        "border-collapse": "collapse",
+        "margin": "20px 0",
+        "font-size": "14px",
+        "border": "1px solid #3e3e42"
+      },
+      "th": {
+        "padding": "10px",
+        "border": "1px solid #3e3e42",
+        "color": "#4ec9b0",
+        "font-weight": "bold",
+        "text-align": "left"
+      },
+      "td": {
+        "padding": "10px",
+        "border": "1px solid #3e3e42",
+        "color": "#d4d4d4"
+      }
+    }
+  }
+}

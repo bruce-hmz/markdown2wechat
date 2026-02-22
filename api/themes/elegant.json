@@ -1,0 +1,106 @@
+{
+  "name": "优雅主题",
+  "version": "1.0",
+  "styles": {
+    "global": {
+      "font-family": "Georgia, 'Times New Roman', 'PingFang SC', 'Hiragino Sans GB', serif",
+      "font-size": "17px",
+      "line-height": "1.8",
+      "color": "#2c3e50",
+      "text-align": "justify",
+      "letter-spacing": "0.5px"
+    },
+    "heading": {
+      "h1": {
+        "font-size": "28px",
+        "font-weight": "bold",
+        "margin": "30px 0 20px",
+        "text-align": "center",
+        "color": "#1a1a1a",
+        "letter-spacing": "1px"
+      },
+      "h2": {
+        "font-size": "22px",
+        "font-weight": "bold",
+        "margin": "25px 0 15px",
+        "color": "#2980b9",
+        "border-bottom": "2px solid #3498db",
+        "padding-bottom": "8px"
+      },
+      "h3": {
+        "font-size": "19px",
+        "font-weight": "bold",
+        "margin": "20px 0 12px",
+        "color": "#34495e"
+      },
+      "h4": {
+        "font-size": "17px",
+        "font-weight": "bold",
+        "margin": "18px 0 10px",
+        "color": "#7f8c8d"
+      }
+    },
+    "code": {
+      "block": {
+        "color": "#2c3e50",
+        "padding": "18px",
+        "border-radius": "6px",
+        "border": "1px solid #e9ecef",
+        "overflow-x": "auto",
+        "font-family": "'Courier New', Courier, monospace",
+        "font-size": "14px",
+        "line-height": "1.6"
+      },
+      "inline": {
+        "color": "#856404",
+        "padding": "3px 8px",
+        "font-family": "'Courier New', Courier, monospace",
+        "font-size": "15px"
+      }
+    },
+    "blockquote": {
+      "border-left": "5px solid #3498db",
+      "padding": "15px 25px",
+      "margin": "25px 0",
+      "color": "#7f8c8d",
+      "font-style": "italic",
+      "font-size": "16px"
+    },
+    "list": {
+      "margin": "20px 0",
+      "padding-left": "35px",
+      "line-height": "2"
+    },
+    "link": {
+      "color": "#3498db",
+      "text-decoration": "none",
+      "border-bottom": "1px solid #3498db"
+    },
+    "image": {
+      "max-width": "100%",
+      "height": "auto",
+      "display": "block",
+      "margin": "25px auto",
+      "border-radius": "8px"
+    },
+    "table": {
+      "table": {
+        "width": "100%",
+        "border-collapse": "collapse",
+        "margin": "25px 0",
+        "font-size": "15px"
+      },
+      "th": {
+        "padding": "12px",
+        "border": "1px solid #dee2e6",
+        "color": "#2980b9",
+        "font-weight": "bold",
+        "text-align": "left"
+      },
+      "td": {
+        "padding": "12px",
+        "border": "1px solid #dee2e6"
+      }
+    }
+  }
+}
