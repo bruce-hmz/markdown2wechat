@@ -1,33 +1,22 @@
 {
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/index.py",
-      "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.11"
-      }
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     },
     {
-      "src": "frontend/static/**/*",
-      "use": "@vercel/static"
+      "source": "/static/:path*",
+      "destination": "/static/:path*"
     },
     {
-      "src": "frontend/templates/index.html",
-      "use": "@vercel/static"
+      "source": "/((?!api/|static/).*)",
+      "destination": "/index.html"
     }
   ],
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/frontend/static/$1"
-    },
-    {
-      "src": "/",
-      "dest": "/frontend/templates/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.py"
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.11"
     }
-  ]
+  },
+  "public": "public"
 }
