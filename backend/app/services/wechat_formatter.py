@@ -6,11 +6,13 @@ from typing import Set
 
 # 微信公众号支持的 HTML 标签
 SUPPORTED_TAGS: Set[str] = {
-    'p', 'br', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    'strong', 'em', 'b', 'i', 'u', 's', 'blockquote',
+'p', 'br', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+'strong', 'em', 'b', 'i', 'u', 's', 'blockquote',
     'ul', 'ol', 'li', 'img', 'a', 'section',
-    # 表格标签
-    'table', 'thead', 'tbody', 'tr', 'th', 'td', 'caption'
+    # 代码块标签
+    'pre', 'code',
+# 表格标签
+'table', 'thead', 'tbody', 'tr', 'th', 'td', 'caption'
 }
 
 # 需要移除的标签属性（保留 style）
@@ -97,6 +99,19 @@ def optimize_for_mobile(html: str) -> str:
         style = td.get('style', '')
         if not style or 'padding' not in style:
             td['style'] = f'{style}; padding: 10px; border: 1px solid #ddd;'
+
+    # 优化代码块容器 section（跳过已有样式的代码块）
+    for section in soup.find_all('section'):
+        style = section.get('style', '')
+        # 只处理没有样式的 section，避免覆盖代码块样式
+        if not style:
+            section['style'] = 'margin: 15px 0;'
+
+    # 优化 pre 标签（如果还没有样式）
+    for pre in soup.find_all('pre'):
+        style = pre.get('style', '')
+        if 'white-space' not in style:
+            pre['style'] = f'{style}; white-space: pre-wrap; word-wrap: break-word; font-family: Consolas, Monaco, monospace;'
 
     return str(soup)
 
